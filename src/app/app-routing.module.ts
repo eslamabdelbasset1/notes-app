@@ -6,11 +6,11 @@ import {ProfileComponent} from "./profile/profile.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
 
 const routes: Routes = [
-  {path: '', redirectTo:'signin', pathMatch: 'full'},
-  {path: 'signin', component: SignInComponent},
-  {path: 'signup', component: SignUpComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: '**', component: NotFoundComponent}
+  {path:'', redirectTo:'sign-in', pathMatch: 'full'},
+  {path:'sign-in', component:SignInComponent},
+  {path:'sign-up', component:SignUpComponent},
+  {path:'profile', component:ProfileComponent},
+  {path:'**', component:NotFoundComponent}
 ];
 
 @NgModule({

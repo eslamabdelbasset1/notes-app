@@ -1,55 +1,48 @@
 <section id="signUp">
   <div class="container py-4">
-    <form [formGroup]="signUp" (ngSubmit)="signUp.value && FormData()">
+    <form>
       <div class="form w-50 m-auto">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <input [class.is-valid]="signUp.get('first_name')?.status=='VALID'"
-                     type="text" class="form-control" placeholder="Enter First Name">
-              <div *ngIf="signUp.get('first_name')?.errors != null && signUp.get('first_name')?.touched" class="alert alert-danger my-2">
-                <p *ngIf="signUp.get('first_name')?.errors?.required"> First name is required</p>
+              <input  type="text" class="form-control" placeholder="Enter First Name">
+              <div  class="alert alert-danger my-2">
+                <p > First name is required</p>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <input [class.is-valid]="signUp.get('last_name')?.status=='VALID'" formControlName="last_name"
-                type="text" class="form-control" placeholder="Enter Last Name">
-              <div *ngIf="signUp.get('last_name')?.errors != null && signUp.get('last_name')?.touched" class="alert alert-danger my-2">
-                <p *ngIf="signUp.get('last_name')?.errors?.required"> Last name is required</p>
+              <input type="text" class="form-control" placeholder="Enter Last Name">
+              <div  class="alert alert-danger my-2">
+                <p > Last name is required</p>
               </div>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <input [class.is-valid]="signUp.get('email')?.status=='VALID'" formControlName="last_name"
+          <input formControlName="last_name"
             type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
-          <div *ngIf="signUp.get('email')?.errors != null && signUp.get('email')?.touched" class="alert alert-danger my-2">
-            <p *ngIf="signUp.get('email')?.errors?.required"> Email is required</p>
+          <small class="form-text">We'll never share your email with anyone else.</small>
+          <div  class="alert alert-danger my-2">
+            <p > Email is required</p>
           </div>
         </div>
         <div class="form-group">
-          <input [class.is-valid]="signUp.get('age')?.status=='VALID'" type="number" class="form-control" placeholder="Enter your Age">
-          <div *ngIf="signUp.get('age')?.errors != null && signUp.get('age')?.touched" class="alert alert-danger my-2">
-            <p *ngIf="signUp.get('age')?.errors?.required"> Age is required</p>
+          <input formControlName="age" type="number" class="form-control" placeholder="Enter your Age">
+          <div class="alert alert-danger my-2">
+            <p> Age is required</p>
           </div>
         </div>
         <div class="form-group">
-          <input [class.is-valid]="signUp.get('password')?.status=='VALID'" type="password" class="form-control" placeholder="Password">
-          <div *ngIf="signUp.get('password')?.errors != null && signUp.get('password')?.touched" class="alert alert-danger my-2">
-            <p *ngIf="signUp.get('password')?.errors?.required"> Last name is required</p>
+          <input formControlName="password" type="password" class="form-control" placeholder="Password">
+          <div  class="alert alert-danger my-2">
+            <p > Last name is required</p>
           </div>
         </div>
-        <button [disabled]="signUp.invalid" [ngStyle]="signUp.invalid? isStyleValid:isStyleInvalid" type="submit" class="btn btn-info">Register</button>
-        <div *ngIf="isSuccess" class="alert alert-success text-center" role="alert">
-          {{responseMessage}}
-        </div>
-        <div *ngIf="isUniqueEmail" class="alert alert-danger text-center" role="alert">
-          {{isUniqueEmailMessage}}
-        </div>
+        <button type="submit" class="btn btn-info">Register</button>
       </div>
     </form>
   </div>
 </section>
+

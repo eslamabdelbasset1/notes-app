@@ -7,17 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   // x:any = 5;
-  baseURL="https://routeegypt.herokuapp.com/";
-  constructor( private _HttpClient: HttpClient) {}
+  constructor(private _HttpClient:HttpClient) {}
 
-  signUp(data:any):Observable<any>
+  register(formData:any):Observable<any>
   {
-    return this._HttpClient.post(this.baseURL+'signup',data);
+    return this._HttpClient.post('https://route-egypt-api.herokuapp.com/sign-up',formData);
   }
 
-  signIn(data:any):Observable<any>
-  {
-    return this._HttpClient.post(this.baseURL+'signin',data);
-  }
+
+  // signIn(data:any):Observable<any>
+  // {
+  //   return this._HttpClient.post(this.baseURL+'signin',data);
+  // }
 
 }

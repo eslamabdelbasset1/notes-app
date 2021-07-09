@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup,Validators ,FormControl} from "@angular/forms";
 import {AuthService} from "../auth.service";
-import {FormGroup, Validators , FormControl} from "@angular/forms";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -8,45 +9,33 @@ import {FormGroup, Validators , FormControl} from "@angular/forms";
 })
 export class SignUpComponent implements OnInit {
 
-  isStyleInvalid={'background-color':'#17a2b8','border-color':'#17a2b8'}
-  isStyleValid={'background-color':'gray','border-color':'gray'}
-  isClicked = false;
-  responseMessage = "";
-  isUniqueEmailMessage = "";
-  isUniqueEmail = false;
-  isSuccess = false;
-  constructor(private _AuthService:AuthService) { }
-  signUp = new FormGroup({
-    first_name:new FormControl('', [Validators.required,Validators.pattern(/^([A-Za-z]+[,.]?|[a-z]+['_]?)+$/)]),
-    last_name:new FormControl('', [Validators.required,Validators.pattern(/^([A-Za-z]+[,.]?|[a-z]+['_]?)+$/)]),
-    email:new FormControl('', [Validators.required,Validators.email]),
-    age:new FormControl('', [Validators.required]),
-    password:new FormControl('', [Validators.required,Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,10}$/)]),
-  })
+  error:string = '';
 
-  FormData()
+  constructor(private _AuthService:AuthService, private _Router:Router) { }
+  registerForm = new FormGroup({
+    first_name: new FormControl(null,
+      [Validators.required,Validators.minLength(3), Validators.maxLength(20)]),
+    last_name: new FormControl(null,
+      [Validators.required,Validators.minLength(3), Validators.maxLength(20)]),
+    email: new FormControl(null,
+      [Validators.required,Validators.email]),
+    age: new FormControl(null,
+      [Validators.required,Validators.min(16), Validators.max(80)]),
+    password: new FormControl(null,
+      [Validators.required, Validators.pattern('^[A-Z][a-z0-9]{3,8}$')])
+   })
+  submitRegisterForm(registerForm:FormGroup)
   {
-    this.isClicked = true;
-    if(this.signUp.valid)
-    {
-      this._AuthService.signUp(this.signUp.value).subscribe((data)=>{
-        if (data.message("success"))
-        {
-          this.isClicked = false;
-          this.isSuccess = true;
-          this.isUniqueEmail = false;
-          this.responseMessage = data.message;
-          this.signUp.reset();
-        }
-        else {
-          this.isClicked = false;
-          this.isSuccess = true;
-          this.isUniqueEmail = true;
-          this.isUniqueEmailMessage = data.error.email.message;
-        }
-        console.log(data)
-      })
-    }
+    this._AuthService.register(registerForm.value).subscribe((response)=>{
+      if(response.message == 'success')
+      {
+        this._Router.navigate(['./login']);
+      }
+      else
+      {
+        this.error = response.errors.message;
+      }
+    })
   }
   ngOnInit(): void {
   }
